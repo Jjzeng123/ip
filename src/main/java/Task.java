@@ -30,4 +30,20 @@ public class Task {
     public void taskDone() {
         this.isDone = true;
     }
+
+    public String getTaskType() {
+        return " ";
+    }
+
+    public String getDate() {
+        String date = null;
+        if (getTaskType().equalsIgnoreCase("T")) {
+            date = "";
+        }  else if (getTaskType().equalsIgnoreCase("D")) {
+            date = toString(); //change later
+        } else if (getTaskType().equalsIgnoreCase("E")) {
+            date = toString(); //change later
+        }
+        return date;
+    }
 }

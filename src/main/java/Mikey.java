@@ -5,13 +5,36 @@ public class Mikey {
 
     public static ArrayList<Task> tasks = new ArrayList<Task>();
 
-    public static void newTask(String taskName) {
-        Task newTask = new Task(taskName);
+    public static Task newTodo(String taskName) {
+        Task newTask = null;
+        newTask = new Todo(taskName);
         tasks.add(newTask);
+        return newTask;
     }
 
+    public static Task newDeadline(String taskName, String dateDue) {
+        Task newTask = null;
+        newTask = new Deadline(taskName, dateDue);
+        tasks.add(newTask);
+        return newTask;
+    }
+
+    public static Task newEvent(String taskName, String timeOfEvent) {
+        Task newTask = null;
+        newTask = new Event(taskName, timeOfEvent);
+        tasks.add(newTask);
+        return newTask;
+    }
     public static void printTask(int task_number) {
-        System.out.println("[" + tasks.get(task_number).getStatusIcon() + "] " +  tasks.get(task_number).getName());
+        System.out.println("[" + tasks.get(task_number).getTaskType() + "]" + "["
+                + tasks.get(task_number).getStatusIcon() + "] " +  tasks.get(task_number).getName()
+                    + " " + tasks.get(task_number).getDate());
+        System.out.println();
+    }
+
+    public static void addTaskMessage() {
+        System.out.println("Now yous got " + tasks.size() + " thing(s) ta do in ya list");
+        System.out.println("Anythin else ya need me ta help ya with?");
         System.out.println();
     }
 
@@ -32,9 +55,8 @@ public class Mikey {
 + "⣿⠀⣠⣾⣿⠟⣡⣾⣿⣿⠀⢸⣿⣿⣿⣿⣿⣿⠀⠀⣿⣿⣷⣄⠀⠀⠙⢿⣿⣿\n"
 + "⣿⣾⣿⣿⣥⣾⣿⣿⣿⣿⣤⣼⣿⣿⣿⣿⣿⣿⣤⣤⣿⣿⣿⣿⣷⣤⣤⣤⣽⣿\n";
         System.out.println("Its yobbo-in time innit bruv\n" + logo);
-        /**
-         * welcome message with union jack flag
-         */
+        //welcome message with union jack flag
+
 
         System.out.println();
         System.out.println("Ello bruv, me name's Mikey!");
@@ -45,7 +67,7 @@ public class Mikey {
 
         while(true) {
             String userInput = inputText.nextLine();
-            String keyword = userInput.split(" ")[0];
+            String keyword = userInput.split(" ", 0)[0];
             if (keyword.equalsIgnoreCase("bye")) {
                 System.out.println("Cheerio mate! I'll be seein ya soon, innit? o7");
                 System.out.println();
@@ -53,8 +75,8 @@ public class Mikey {
             } else if (keyword.equalsIgnoreCase("list")){
                 System.out.println("Aight bruv here's ya list of stuff yous gotta do");
                 for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println(i + 1 + ". " + "[" + tasks.get(i).getStatusIcon() + "] "
-                            +  tasks.get(i).getName());
+                    System.out.println(i + 1 + ". " + "[" + tasks.get(i).getTaskType() + "]" + "["
+                            + tasks.get(i).getStatusIcon() + "] " +  tasks.get(i).getName() + tasks.get(i).getDate());
                 }
                 System.out.println();
             } else if (keyword.equalsIgnoreCase("mark")) {
@@ -67,11 +89,43 @@ public class Mikey {
                 tasks.get(task_number).isDone = false;
                 System.out.println("Aye good Sir/Ma'am, I've marked that uncompleted: ");
                 printTask(task_number);
+            } else if (keyword.equalsIgnoreCase("todo")) {
+                //todo new task
+                int start = userInput.indexOf(keyword) + 5;
+                String taskName = userInput.substring(start);
+                System.out.println("Gotcha mate, added this task to your list: ");
+                newTodo(taskName);
+                printTask((tasks.size() - 1));
+                addTaskMessage();
+            } else if (keyword.equalsIgnoreCase("deadline")) {
+                //deadline new task
+                int start = userInput.indexOf(keyword) + 9;
+                int startOfBy = userInput.indexOf("/by");
+                String taskName = userInput.substring(start, startOfBy - 1);
+                String dateTime = userInput.substring(startOfBy + 4);
+                newDeadline(taskName, dateTime);
+                System.out.println("Gotcha mate, added this task to your list: ");
+                printTask((tasks.size() -1));
+                addTaskMessage();
+            } else if (keyword.equalsIgnoreCase("event")) {
+                //event new task
+                int start = userInput.indexOf(keyword) + 6;
+                int startOfFrom = userInput.indexOf("/from");
+                String taskName = userInput.substring(start, startOfFrom);
+                String timeOfEvent = userInput.substring(startOfFrom);
+                timeOfEvent = timeOfEvent.replace("from", "from:");
+                timeOfEvent = timeOfEvent.replace("to", "to:");
+                newEvent(taskName, timeOfEvent);
+                System.out.println("Gotcha mate, added this task to your list: ");
+                printTask((tasks.size() -1));
+                addTaskMessage();
             } else {
-                System.out.println("Gotcha mate, added \"" + userInput + "\" to your list");
-                newTask(userInput);
-                System.out.println("Anythin else ya need me ta help ya with?");
-                System.out.println();
+//                System.out.println("Gotcha mate, added this task to your list: ");
+//                newTask(userInput);
+//                printTask((tasks.size - 1));
+//                System.out.println("Now yous got " + tasks.size() + " thing(s) ta do in ya list");
+//                System.out.println("Anythin else ya need me ta help ya with?");
+//                System.out.println();
             }
         }
     }
