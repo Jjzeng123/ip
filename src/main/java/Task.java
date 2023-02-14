@@ -46,4 +46,11 @@ public class Task {
         }
         return date;
     }
+
+    public int getTaskStatus() {
+        return (isDone ? 1 : 0);
+    }
+    public String taskStringFormat() {
+        return String.format(getTaskType() + " | " + getTaskStatus() + " | " + getName());
+    }
 }
