@@ -1,5 +1,10 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.StringJoiner;
 
 public class Mikey {
 
@@ -7,9 +12,6 @@ public class Mikey {
 
     public static Task newTodo(String taskName) {
         Task newTask = null;
-//        if(taskName.equals(null)) {
-//            throw new EmptyTaskException();
-//        }
         newTask = new Todo(taskName);
         tasks.add(newTask);
         return newTask;
@@ -17,9 +19,6 @@ public class Mikey {
 
     public static Task newDeadline(String taskName, String dateDue) {
         Task newTask = null;
-//        if(taskName.equals(null) || dateDue.equals(null)) {
-//            throw new EmptyTaskException();
-//        }
         newTask = new Deadline(taskName, dateDue);
         tasks.add(newTask);
         return newTask;
@@ -27,17 +26,14 @@ public class Mikey {
 
     public static Task newEvent(String taskName, String timeOfEvent) {
         Task newTask = null;
-//        if(taskName.equals(null) || timeOfEvent.equals(null)) {
-//            throw new EmptyTaskException();
-//        }
         newTask = new Event(taskName, timeOfEvent);
         tasks.add(newTask);
         return newTask;
     }
-    public static void printTask(int task_number) {
-        System.out.println("[" + tasks.get(task_number).getTaskType() + "]" + "["
-                + tasks.get(task_number).getStatusIcon() + "] " +  tasks.get(task_number).getName()
-                    + " " + tasks.get(task_number).getDate());
+    public static void printTask(int taskNumber) {
+        System.out.println("[" + tasks.get(taskNumber).getTaskType() + "]" + "["
+                + tasks.get(taskNumber).getStatusIcon() + "] " +  tasks.get(taskNumber).getName()
+                    + " " + tasks.get(taskNumber).getDate());
         System.out.println();
     }
 
@@ -47,7 +43,46 @@ public class Mikey {
         System.out.println();
     }
 
-    public static void main(String[] args) {
+    public static void deleteTask(int taskNumber) {
+        System.out.println("I've gotcha mate, removed [" + tasks.get(taskNumber).getTaskType() + "]" + "["
+            + tasks.get(taskNumber).getStatusIcon() + "]" + tasks.get(taskNumber).getName() + " "
+                + tasks.get(taskNumber).getDate());
+        tasks.remove(taskNumber);
+    }
+
+    public static void saveToFile() throws java.io.IOException {
+        StringJoiner taskFormatter = new StringJoiner(System.lineSeparator());
+        for (Task t: tasks) {
+            taskFormatter.add(t.taskStringFormat());
+        }
+        int count = 0;
+        int maxTries = 1;
+        while (true) {
+            try {
+                FileWriter listWrite = new FileWriter("./data/Mikey.txt");
+                listWrite.write(taskFormatter.toString());
+                listWrite.close();
+                break;
+            } catch (FileNotFoundException e){
+                System.out.println("File not found, creating new file");
+                fileNotFound(taskFormatter.toString());
+            }
+        }
+    }
+
+    public static void fileNotFound(String taskFormatter) {
+        try {
+            File newFile = new File("./data/Mikey.txt");
+            newFile.getParentFile().mkdirs();
+            FileWriter listWrite = new FileWriter("./data/Mikey.txt");
+            listWrite.write(taskFormatter.toString());
+            listWrite.close();
+        } catch (IOException e) {
+            System.out.println("Oopsie mate, I can't create a new file");
+        }
+    }
+
+    public static void main(String[] args) throws java.io.IOException {
         String logo = "⣿⣟⠛⠛⠛⢿⣿⣿⣿⣿⠛⢻⣿⣿⣿⣿⣿⣿⠛⠛⣿⣿⣿⣿⡿⢛⣿⣿⡿⣿ \n"
 + "⣿⣿⣷⣄⠀⠀⠙⢿⣿⣿⠀⢸⣿⣿⣿⣿⣿⣿⠀⠀⣿⣿⠟⢋⣴⣿⡿⠋⠀⣿\n"
 + "⣿⣌⠻⣿⣷⣄⠀⠀⠈⠻⠀⢸⣿⣿⣿⣿⣿⣿⠀⠀⠟⢁⣴⣿⡿⠋⠀⠀⣠⣿\n"
@@ -91,10 +126,11 @@ public class Mikey {
                 System.out.println();
             } else if (keyword.equalsIgnoreCase("mark")) {
                 try {
-                    int task_number = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    tasks.get(task_number).isDone = true;
+                    int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    tasks.get(taskNumber).isDone = true;
                     System.out.println("Well done bruv, you finished this: ");
-                    printTask(task_number);
+                    printTask(taskNumber);
+                    saveToFile();
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Bloody 'ell buddy, I can't mark an imaginary task now innit?");
                     System.out.println();
@@ -104,10 +140,11 @@ public class Mikey {
                 }
             } else if (keyword.equalsIgnoreCase("unmark")){
                 try {
-                    int task_number = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    tasks.get(task_number).isDone = false;
+                    int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    tasks.get(taskNumber).isDone = false;
                     System.out.println("Aye good Sir/Ma'am, I've marked that uncompleted: ");
-                    printTask(task_number);
+                    printTask(taskNumber);
+                    saveToFile();
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Bloody 'ell buddy, I can't unmark an imaginary task now innit?");
                     System.out.println();
@@ -125,6 +162,7 @@ public class Mikey {
                     newTodo(taskName);
                     printTask((tasks.size() - 1));
                     addTaskMessage();
+                    saveToFile();
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("Oi mate, I can't create an empty task yea?");
                     System.out.println();
@@ -141,6 +179,7 @@ public class Mikey {
                     System.out.println("Gotcha mate, added this task to your list: ");
                     printTask((tasks.size() -1));
                     addTaskMessage();
+                    saveToFile();
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("Oi mate, I can't create an empty task yea?");
                     System.out.println();
@@ -159,8 +198,19 @@ public class Mikey {
                     System.out.println("Gotcha mate, added this task to your list: ");
                     printTask((tasks.size() -1));
                     addTaskMessage();
+                    saveToFile();
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("Oi mate, I can't create an empty task yea?");
+                    System.out.println();
+                }
+            } else if (keyword.equalsIgnoreCase("delete")) {
+                try {
+                    int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    deleteTask(taskNumber);
+                    addTaskMessage();
+                    saveToFile();
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("C'mon bruv, I can't deletes an imaginary task now, can I?");
                     System.out.println();
                 }
             } else {
