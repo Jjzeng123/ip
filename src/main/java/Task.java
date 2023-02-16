@@ -35,10 +35,11 @@ public class Task {
         return " ";
     }
 
+
     public String getDate() {
         String date = null;
         if (getTaskType().equalsIgnoreCase("T")) {
-            date = "";
+            date = " ";
         }  else if (getTaskType().equalsIgnoreCase("D")) {
             date = toString(); //change later
         } else if (getTaskType().equalsIgnoreCase("E")) {
@@ -51,6 +52,6 @@ public class Task {
         return (isDone ? 1 : 0);
     }
     public String taskStringFormat() {
-        return String.format(getTaskType() + " | " + getTaskStatus() + " | " + getName());
+        return String.format(getTaskType() + " | " + getTaskStatus() + " | " + getName()) + " | " + getDate();
     }
 }

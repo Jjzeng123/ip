@@ -5,35 +5,51 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.StringJoiner;
+import java.util.Arrays;
 
 public class Mikey {
 
     public static ArrayList<Task> tasks = new ArrayList<Task>();
 
-    public static Task newTodo(String taskName) {
+    public static Task newTodo(String taskName, int completion) {
         Task newTask = null;
         newTask = new Todo(taskName);
+        if(completion == 1) {
+            newTask.isDone = true;
+        } else {
+            newTask.isDone = false;
+        }
         tasks.add(newTask);
         return newTask;
     }
 
-    public static Task newDeadline(String taskName, String dateDue) {
+    public static Task newDeadline(String taskName, String dateDue, int completion) {
         Task newTask = null;
         newTask = new Deadline(taskName, dateDue);
+        if(completion == 1) {
+            newTask.isDone = true;
+        } else {
+            newTask.isDone = false;
+        }
         tasks.add(newTask);
         return newTask;
     }
 
-    public static Task newEvent(String taskName, String timeOfEvent) {
+    public static Task newEvent(String taskName, String timeOfEvent, int completion) {
         Task newTask = null;
         newTask = new Event(taskName, timeOfEvent);
+        if(completion == 1) {
+            newTask.isDone = true;
+        } else {
+            newTask.isDone = false;
+        }
         tasks.add(newTask);
         return newTask;
     }
     public static void printTask(int taskNumber) {
         System.out.println("[" + tasks.get(taskNumber).getTaskType() + "]" + "["
-                + tasks.get(taskNumber).getStatusIcon() + "] " +  tasks.get(taskNumber).getName()
-                    + " " + tasks.get(taskNumber).getDate());
+                + tasks.get(taskNumber).getStatusIcon() + "] " +  tasks.get(taskNumber).getName() + " "
+                    + tasks.get(taskNumber).getDate());
         System.out.println();
     }
 
@@ -63,14 +79,68 @@ public class Mikey {
                 listWrite.write(taskFormatter.toString());
                 listWrite.close();
                 break;
-            } catch (FileNotFoundException e){
-                System.out.println("File not found, creating new file");
+            } catch (FileNotFoundException e) {
                 fileNotFound(taskFormatter.toString());
             }
         }
     }
 
+    public static void readFromFile() throws java.io.IOException{
+        try {
+            File readingFile = new File("./data/Mikey.txt");
+            Scanner fileScan = new Scanner(readingFile);
+            while(fileScan.hasNextLine()) {
+                String taskLine = fileScan.nextLine();
+                String[] taskDetails = taskLine.split(" | ", 0);
+                String taskType = taskDetails[0];
+                String taskCompletion = taskDetails[2];
+                String taskDescription = taskDetails[4];
+                if(taskType.equalsIgnoreCase("T")) {
+                    try {
+                        newTodo(taskDescription, Integer.parseInt(taskCompletion));
+                    } catch (StringIndexOutOfBoundsException e) {
+                        System.out.println("Oi mate, I can't create an empty task yea?");
+                        System.out.println();
+                    }
+                } else if (taskType.equalsIgnoreCase("D")) {
+                    try {
+                        String[] taskDateArray = Arrays.copyOfRange(taskDetails, 7, taskDetails.length);
+                        StringBuffer taskDateJoiner = new StringBuffer();
+                        for (int i = 0; i < taskDateArray.length; i++) {
+                            taskDateJoiner.append(taskDateArray[i]);
+                        }
+                        String taskDate = taskDateJoiner.toString();
+                        taskDate = taskDate.replace(")", "");
+                        newDeadline(taskDescription, taskDate, Integer.parseInt(taskCompletion));
+                    } catch (StringIndexOutOfBoundsException e) {
+                        System.out.println("Oi mate, I can't create an empty task yea?");
+                        System.out.println();
+                    }
+                } else if (taskType.equalsIgnoreCase("E")) {
+                    try {
+                        String[] taskDateArray = Arrays.copyOfRange(taskDetails, 6, taskDetails.length);
+                        StringBuffer taskDateJoiner = new StringBuffer();
+                        for (int i = 0; i < taskDateArray.length; i++) {
+                            taskDateJoiner.append(taskDateArray[i]);
+                            taskDateJoiner.append(" ");
+                        }
+                        String taskDate = taskDateJoiner.toString();
+                        taskDate = taskDate.replace(")", "");
+                        newEvent(taskDescription, taskDate, Integer.parseInt(taskCompletion));
+                    } catch (StringIndexOutOfBoundsException e) {
+                        System.out.println("Oi mate, I can't create an empty task yea?");
+                        System.out.println();
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            fileNotFound("");
+        }
+
+    }
+
     public static void fileNotFound(String taskFormatter) {
+        System.out.println("Ooh deary me bruv, I reckon that file don't exists yet, I'm gonna go ahead and make one");
         try {
             File newFile = new File("./data/Mikey.txt");
             newFile.getParentFile().mkdirs();
@@ -106,6 +176,7 @@ public class Mikey {
         System.out.println("Ello bruv, me name's Mikey!");
         System.out.println("How can ah help ya bruv?");
         System.out.println();
+        readFromFile();
 
         Scanner inputText = new Scanner(System.in);
 
@@ -121,7 +192,8 @@ public class Mikey {
                 System.out.println("Aight bruv here's ya list of stuff yous gotta do");
                 for (int i = 0; i < tasks.size(); i++) {
                     System.out.println(i + 1 + ". " + "[" + tasks.get(i).getTaskType() + "]" + "["
-                            + tasks.get(i).getStatusIcon() + "] " +  tasks.get(i).getName() + tasks.get(i).getDate());
+                            + tasks.get(i).getStatusIcon() + "] " +  tasks.get(i).getName() + " "
+                                + tasks.get(i).getDate());
                 }
                 System.out.println();
             } else if (keyword.equalsIgnoreCase("mark")) {
@@ -159,7 +231,7 @@ public class Mikey {
                     start = userInput.indexOf(keyword) + 5;
                     String taskName = userInput.substring(start);
                     System.out.println("Gotcha mate, added this task to your list: ");
-                    newTodo(taskName);
+                    newTodo(taskName, 0);
                     printTask((tasks.size() - 1));
                     addTaskMessage();
                     saveToFile();
@@ -175,7 +247,7 @@ public class Mikey {
                     int startOfBy = userInput.indexOf("/by");
                     String taskName = userInput.substring(start, startOfBy - 1);
                     String dateTime = userInput.substring(startOfBy + 4);
-                    newDeadline(taskName, dateTime);
+                    newDeadline(taskName, dateTime, 0);
                     System.out.println("Gotcha mate, added this task to your list: ");
                     printTask((tasks.size() -1));
                     addTaskMessage();
@@ -190,11 +262,11 @@ public class Mikey {
                 try {
                     start = userInput.indexOf(keyword) + 6;
                     int startOfFrom = userInput.indexOf("/from");
-                    String taskName = userInput.substring(start, startOfFrom);
+                    String taskName = userInput.substring(start, startOfFrom - 1);
                     String timeOfEvent = userInput.substring(startOfFrom);
                     timeOfEvent = timeOfEvent.replace("from", "from:");
                     timeOfEvent = timeOfEvent.replace("to", "to:");
-                    newEvent(taskName, timeOfEvent);
+                    newEvent(taskName, timeOfEvent, 0);
                     System.out.println("Gotcha mate, added this task to your list: ");
                     printTask((tasks.size() -1));
                     addTaskMessage();
