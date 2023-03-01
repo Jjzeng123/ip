@@ -215,23 +215,7 @@ public class Mikey {
     }
 
     public static void main(String[] args) throws java.io.IOException {
-        String logo = "⣿⣟⠛⠛⠛⢿⣿⣿⣿⣿⠛⢻⣿⣿⣿⣿⣿⣿⠛⠛⣿⣿⣿⣿⡿⢛⣿⣿⡿⣿ \n"
-+ "⣿⣿⣷⣄⠀⠀⠙⢿⣿⣿⠀⢸⣿⣿⣿⣿⣿⣿⠀⠀⣿⣿⠟⢋⣴⣿⡿⠋⠀⣿\n"
-+ "⣿⣌⠻⣿⣷⣄⠀⠀⠈⠻⠀⢸⣿⣿⣿⣿⣿⣿⠀⠀⠟⢁⣴⣿⡿⠋⠀⠀⣠⣿\n"
-+ "⣿⣿⣷⣌⠻⣿⣷⣄⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⠀⠀⣴⣿⡿⠋⠀⠀⣠⣾⣿⣿\n"
-+ "⣿⣿⣿⣿⣦⡈⠻⣿⣷⡄⠀⢸⣿⣿⣿⣿⣿⣿⠀⠀⡿⠋⠀⠀⢀⣴⣿⣿⣿⣿\n"
-+ "⣿⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣸⣿⣿⣿⣿⣿⣿⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣿\n"
-+ "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n"
-+ "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n"
-+ "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n"
-+ "⣿⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⢹⣿⣿⣿⣿⣿⣿⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⣿\n"
-+ "⣿⣿⣿⣿⠟⠁⠀⠀⣠⣶⠀⢸⣿⣿⣿⣿⣿⣿⠀⠀⠘⢿⣿⣦⡈⠻⣿⣿⣿⣿\n"
-+ "⣿⣿⡿⠋⠀⠀⣠⣾⣿⠟⠀⢸⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠙⢿⣿⣦⡙⢿⣿⣿\n"
-+ "⣿⠋⠀⠀⣠⣾⣿⠟⢁⣴⠀⢸⣿⣿⣿⣿⣿⣿⠀⠀⣦⡀⠀⠀⠙⢿⣿⣦⡙⣿\n"
-+ "⣿⠀⣠⣾⣿⠟⣡⣾⣿⣿⠀⢸⣿⣿⣿⣿⣿⣿⠀⠀⣿⣿⣷⣄⠀⠀⠙⢿⣿⣿\n"
-+ "⣿⣾⣿⣿⣥⣾⣿⣿⣿⣿⣤⣼⣿⣿⣿⣿⣿⣿⣤⣤⣿⣿⣿⣿⣷⣤⣤⣤⣽⣿\n";
-        System.out.println("Its yobbo-in time innit bruv\n" + logo);
-        //welcome message with union jack flag
+        System.out.println("Its yobbo-in time innit bruv\n");
 
 
         System.out.println();
@@ -264,6 +248,7 @@ public class Mikey {
                     tasks.get(taskNumber).isDone = true;
                     System.out.println("Well done bruv, you finished this: ");
                     printTask(taskNumber);
+                    System.out.println();
                     saveToFile();
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Bloody 'ell buddy, I can't mark an imaginary task now innit?");
@@ -278,6 +263,7 @@ public class Mikey {
                     tasks.get(taskNumber).isDone = false;
                     System.out.println("Aye good Sir/Ma'am, I've marked that uncompleted: ");
                     printTask(taskNumber);
+                    System.out.println();
                     saveToFile();
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Bloody 'ell buddy, I can't unmark an imaginary task now innit?");
@@ -294,6 +280,7 @@ public class Mikey {
                     System.out.println("Gotcha mate, added this task to your list: ");
                     newTodo(taskName, 0);
                     printTask((tasks.size() - 1));
+                    System.out.println();
                     addTaskMessage();
                     saveToFile();
                 } catch (StringIndexOutOfBoundsException e) {
@@ -310,6 +297,7 @@ public class Mikey {
                     newDeadline(taskName, dateTime, 0);
                     System.out.println("Gotcha mate, added this task to your list: ");
                     printTask((tasks.size() -1));
+                    System.out.println();
                     addTaskMessage();
                     saveToFile();
                 } catch (StringIndexOutOfBoundsException e) {
@@ -328,6 +316,7 @@ public class Mikey {
                     newEvent(taskName, timeOfEvent, 0);
                     System.out.println("Gotcha mate, added this task to your list: ");
                     printTask((tasks.size() -1));
+                    System.out.println();
                     addTaskMessage();
                     saveToFile();
                 } catch (StringIndexOutOfBoundsException e) {
