@@ -5,12 +5,19 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.StringJoiner;
-import java.util.Arrays;
 
 public class Mikey {
 
     public static ArrayList<Task> tasks = new ArrayList<Task>();
 
+    /**
+     * Returns a new Task of the "To Do" type and adds it to the "tasks" arraylist.
+     *
+     *
+     * @param taskName the description of the task
+     * @param completion the completion status of the task
+     * @return a new task of the "To Do" type
+     */
     public static Task newTodo(String taskName, int completion) {
         Task newTask = null;
         newTask = new Todo(taskName);
@@ -23,6 +30,14 @@ public class Mikey {
         return newTask;
     }
 
+    /**
+     * Returns a new Task of the "Deadline" type and adds it to the "tasks" arraylist.
+     *
+     * @param taskName the description of the task
+     * @param dateDue the date the task is due
+     * @param completion the completion status of the task
+     * @return a new task of the "Deadline" type
+     */
     public static Task newDeadline(String taskName, String dateDue, int completion) {
         Task newTask = null;
         newTask = new Deadline(taskName, dateDue);
@@ -35,6 +50,14 @@ public class Mikey {
         return newTask;
     }
 
+    /**
+     * Returns a new task of the "Event" type and adds it to the "tasks" arraylist
+     *
+     * @param taskName the description of the task
+     * @param timeOfEvent the start and end times of the task
+     * @param completion the completion status of the task
+     * @return a new task of the "Event" type
+     */
     public static Task newEvent(String taskName, String timeOfEvent, int completion) {
         Task newTask = null;
         newTask = new Event(taskName, timeOfEvent);
@@ -46,19 +69,32 @@ public class Mikey {
         tasks.add(newTask);
         return newTask;
     }
+
+    /**
+     * Prints out a formatted version of the task with its type, completion status, description and date (if any)
+     *
+     * @param taskNumber the number of the task in the list
+     */
     public static void printTask(int taskNumber) {
         System.out.println("[" + tasks.get(taskNumber).getTaskType() + "]" + "["
                 + tasks.get(taskNumber).getStatusIcon() + "] " +  tasks.get(taskNumber).getName() + " "
                     + tasks.get(taskNumber).getDate());
-//        System.out.println();
     }
 
+    /**
+     * Prints out a series of messages confirming to the user that their task has been added
+     */
     public static void addTaskMessage() {
         System.out.println("Now yous got " + tasks.size() + " thing(s) ta do in ya list");
         System.out.println("Anythin else ya need me ta help ya with?");
         System.out.println();
     }
 
+    /**
+     * Deletes a task from the "tasks" arraylist
+     *
+     * @param taskNumber the number of the task in the list
+     */
     public static void deleteTask(int taskNumber) {
         System.out.println("I've gotcha mate, removed [" + tasks.get(taskNumber).getTaskType() + "]" + "["
             + tasks.get(taskNumber).getStatusIcon() + "]" + tasks.get(taskNumber).getName() + " "
@@ -66,13 +102,17 @@ public class Mikey {
         tasks.remove(taskNumber);
     }
 
+    /**
+     * Saves the data in the "tasks" arraylist to a text file in a certain format, and throws an IO exception
+     * if the save fails, then creates the file manually and tries again.
+     *
+     * @throws java.io.IOException if the home directory and file cannot be found
+     */
     public static void saveToFile() throws java.io.IOException {
         StringJoiner taskFormatter = new StringJoiner(System.lineSeparator());
         for (Task t: tasks) {
             taskFormatter.add(t.taskStringFormat());
         }
-        int count = 0;
-        int maxTries = 1;
         while (true) {
             try {
                 FileWriter listWrite = new FileWriter("./data/Mikey.txt");
@@ -85,6 +125,12 @@ public class Mikey {
         }
     }
 
+    /**
+     * Reads data from a text file and converts it into data to create new tasks to add to the "tasks" arraylist,
+     * throws an exception if the file is not found and creates the file
+     *
+     * @throws java.io.IOException if the home directory and the file cannot be found
+     */
     public static void readFromFile() throws java.io.IOException{
         try {
             File readingFile = new File("./data/Mikey.txt");
@@ -92,9 +138,6 @@ public class Mikey {
             while(fileScan.hasNextLine()) {
                 String taskLine = fileScan.nextLine();
                 String[] taskDetails = taskLine.split(" \\|\\ ", 0);
-//                for(String a: taskDetails) {
-//                    System.out.println(a);
-//                }
                 String taskType = taskDetails[0];
                 String taskCompletion = taskDetails[1];
                 String taskDescription = taskDetails[2];
@@ -132,6 +175,13 @@ public class Mikey {
 
     }
 
+    /**
+     * Handler for the FileNotFoundException in the saveToFile and readFromFile methods, creates a new directory
+     * and text file
+     *
+     * @param taskFormatter the formatted string of details of a task to be written to the file, set to empty when a new
+     *                      blank file is created
+     */
     public static void fileNotFound(String taskFormatter) {
         System.out.println("Ooh deary me bruv, I reckon that file don't exists yet, I'm gonna go ahead and make one");
         try {
@@ -145,6 +195,11 @@ public class Mikey {
         }
     }
 
+    /**
+     * Method to find a task based on a keyword in a search term and prints out a list of tasks containing that keyword
+     *
+     * @param searchTerm the keyword to search for within the list of tasks
+     */
     public static void findTasks(String searchTerm) {
         String keyword = searchTerm;
         System.out.println("Here ya go bruv, that's everythin that contains that search term:");
@@ -232,7 +287,6 @@ public class Mikey {
                     System.out.println();
                 }
             } else if (keyword.equalsIgnoreCase("todo")) {
-                //todo new task
                 int start = 0;
                 try {
                     start = userInput.indexOf(keyword) + 5;
@@ -247,7 +301,6 @@ public class Mikey {
                     System.out.println();
                 }
             } else if (keyword.equalsIgnoreCase("deadline")) {
-                //deadline new task
                 int start = 0;
                 try {
                     start = userInput.indexOf(keyword) + 9;
@@ -264,7 +317,6 @@ public class Mikey {
                     System.out.println();
                 }
             } else if (keyword.equalsIgnoreCase("event")) {
-                //event new task
                 int start = 0;
                 try {
                     start = userInput.indexOf(keyword) + 6;
