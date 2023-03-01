@@ -332,9 +332,14 @@ public class Mikey {
                     System.out.println();
                 }
             } else if (keyword.equalsIgnoreCase("find")) {
-                int start = userInput.indexOf(keyword) + 5;
-                String searchTerm = userInput.substring(start);
-                findTasks(searchTerm);
+                try {
+                    int start = userInput.indexOf(keyword) + 5;
+                    String searchTerm = userInput.substring(start);
+                    findTasks(searchTerm);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("Sorry mate, ah can't find something that ain't there!");
+                    System.out.println();
+                }
                 System.out.println();
             } else {
                 System.out.println("Crikey bruv, yous 'avin a laugh? I don know what that means!");
