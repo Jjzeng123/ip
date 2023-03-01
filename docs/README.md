@@ -5,9 +5,9 @@ Hey there! Thanks for making Mikey your friend! He's here to help you with anyth
 1. Getting Started<br>
 2. Features<br>
    a. Tasks<br>
-        I. To Do<br>
-        II. Deadline<br>
-        III. Event<br>
+      I. To Do<br>
+      II. Deadline<br>
+      III. Event<br>
    b. List<br>
    c. Marking Tasks<br>
         I. Mark<br>
