@@ -50,7 +50,7 @@ public class Mikey {
         System.out.println("[" + tasks.get(taskNumber).getTaskType() + "]" + "["
                 + tasks.get(taskNumber).getStatusIcon() + "] " +  tasks.get(taskNumber).getName() + " "
                     + tasks.get(taskNumber).getDate());
-        System.out.println();
+//        System.out.println();
     }
 
     public static void addTaskMessage() {
@@ -91,10 +91,13 @@ public class Mikey {
             Scanner fileScan = new Scanner(readingFile);
             while(fileScan.hasNextLine()) {
                 String taskLine = fileScan.nextLine();
-                String[] taskDetails = taskLine.split(" | ", 0);
+                String[] taskDetails = taskLine.split(" \\|\\ ", 0);
+//                for(String a: taskDetails) {
+//                    System.out.println(a);
+//                }
                 String taskType = taskDetails[0];
-                String taskCompletion = taskDetails[2];
-                String taskDescription = taskDetails[4];
+                String taskCompletion = taskDetails[1];
+                String taskDescription = taskDetails[2];
                 if(taskType.equalsIgnoreCase("T")) {
                     try {
                         newTodo(taskDescription, Integer.parseInt(taskCompletion));
@@ -104,12 +107,8 @@ public class Mikey {
                     }
                 } else if (taskType.equalsIgnoreCase("D")) {
                     try {
-                        String[] taskDateArray = Arrays.copyOfRange(taskDetails, 7, taskDetails.length);
-                        StringBuffer taskDateJoiner = new StringBuffer();
-                        for (int i = 0; i < taskDateArray.length; i++) {
-                            taskDateJoiner.append(taskDateArray[i]);
-                        }
-                        String taskDate = taskDateJoiner.toString();
+                        String[] taskDateTemp = taskDetails[3].split("\\(by ", 0);
+                        String taskDate = taskDateTemp[1].substring(0);
                         taskDate = taskDate.replace(")", "");
                         newDeadline(taskDescription, taskDate, Integer.parseInt(taskCompletion));
                     } catch (StringIndexOutOfBoundsException e) {
@@ -118,14 +117,8 @@ public class Mikey {
                     }
                 } else if (taskType.equalsIgnoreCase("E")) {
                     try {
-                        String[] taskDateArray = Arrays.copyOfRange(taskDetails, 6, taskDetails.length);
-                        StringBuffer taskDateJoiner = new StringBuffer();
-                        for (int i = 0; i < taskDateArray.length; i++) {
-                            taskDateJoiner.append(taskDateArray[i]);
-                            taskDateJoiner.append(" ");
-                        }
-                        String taskDate = taskDateJoiner.toString();
-                        taskDate = taskDate.replace(")", "");
+                        String[] taskDateTemp = taskDetails[3].split("\\(");
+                        String taskDate = taskDateTemp[0].substring(0);
                         newEvent(taskDescription, taskDate, Integer.parseInt(taskCompletion));
                     } catch (StringIndexOutOfBoundsException e) {
                         System.out.println("Oi mate, I can't create an empty task yea?");
@@ -149,6 +142,20 @@ public class Mikey {
             listWrite.close();
         } catch (IOException e) {
             System.out.println("Oopsie mate, I can't create a new file");
+        }
+    }
+
+    public static void findTasks(String searchTerm) {
+        String keyword = searchTerm;
+        System.out.println("Here ya go bruv, that's everythin that contains that search term:");
+        int counter = 0;
+        for(int i = 0; i < tasks.size(); i++) {
+            String temp = tasks.get(i).getName();
+            if (temp.contains(keyword)) {
+                counter++;
+                System.out.print(counter + ". ");
+                printTask(i);
+            }
         }
     }
 
@@ -285,6 +292,11 @@ public class Mikey {
                     System.out.println("C'mon bruv, I can't deletes an imaginary task now, can I?");
                     System.out.println();
                 }
+            } else if (keyword.equalsIgnoreCase("find")) {
+                int start = userInput.indexOf(keyword) + 5;
+                String searchTerm = userInput.substring(start);
+                findTasks(searchTerm);
+                System.out.println();
             } else {
                 System.out.println("Crikey bruv, yous 'avin a laugh? I don know what that means!");
                 System.out.println();
