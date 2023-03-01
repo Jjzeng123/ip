@@ -216,8 +216,6 @@ public class Mikey {
 
     public static void main(String[] args) throws java.io.IOException {
         System.out.println("Its yobbo-in time innit bruv\n");
-
-
         System.out.println();
         System.out.println("Ello bruv, me name's Mikey!");
         System.out.println("How can ah help ya bruv?");
