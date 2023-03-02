@@ -14,7 +14,7 @@ Hey there! Thanks for making Mikey your friend! He's here to help you with anyth
       2. [Unmark](#unmark)
    4. [Delete](#delete)
    5. [Find](#find)
-   6. [Saving](#saving)
+   6. [Saving Files](#saving-files)
 3. [Command list](#command-list)
 4. [Conclusion](#conclusion)
   
@@ -77,7 +77,7 @@ Mikey unfortunately is unable to edit tasks. Should you make a mistake, you may 
 If you wish to search the list of tasks by keyword, you may use the command `find <keyword>` to complete this action. For example, `find book`.
 ![find.png](images/find.png)
 
-### Saving files
+### Saving Files
 When Mikey is first launched, Mikey will create a text file in the current working directory, which should be the same directory as the location of the `.jar` file that you downloaded. 
 
 Upon receiving the command `bye`, Mikey will save the information in a text file (Mikey.txt). The file will display the contents on individual lines, in the order of Task type, completion status, description and time information (if any). An example is shown below:
