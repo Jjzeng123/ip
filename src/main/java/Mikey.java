@@ -248,10 +248,7 @@ public class Mikey {
                     printTask(taskNumber);
                     System.out.println();
                     saveToFile();
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Bloody 'ell buddy, I can't mark an imaginary task now innit?");
-                    System.out.println();
-                } catch (IndexOutOfBoundsException e) {
+                } catch (Exception e) {
                     System.out.println("Bloody 'ell buddy, I can't mark an imaginary task now innit?");
                     System.out.println();
                 }
@@ -263,10 +260,7 @@ public class Mikey {
                     printTask(taskNumber);
                     System.out.println();
                     saveToFile();
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Bloody 'ell buddy, I can't unmark an imaginary task now innit?");
-                    System.out.println();
-                } catch (IndexOutOfBoundsException e) {
+                } catch (Exception e) {
                     System.out.println("Bloody 'ell buddy, I can't unmark an imaginary task now innit?");
                     System.out.println();
                 }
@@ -281,7 +275,7 @@ public class Mikey {
                     System.out.println();
                     addTaskMessage();
                     saveToFile();
-                } catch (StringIndexOutOfBoundsException e) {
+                } catch (Exception e) {
                     System.out.println("Oi mate, I can't create an empty task yea?");
                     System.out.println();
                 }
@@ -298,7 +292,7 @@ public class Mikey {
                     System.out.println();
                     addTaskMessage();
                     saveToFile();
-                } catch (StringIndexOutOfBoundsException e) {
+                } catch (Exception e) {
                     System.out.println("Oi mate, I can't create an empty task yea?");
                     System.out.println();
                 }
@@ -317,7 +311,7 @@ public class Mikey {
                     System.out.println();
                     addTaskMessage();
                     saveToFile();
-                } catch (StringIndexOutOfBoundsException e) {
+                } catch (Exception e) {
                     System.out.println("Oi mate, I can't create an empty task yea?");
                     System.out.println();
                 }
@@ -327,7 +321,7 @@ public class Mikey {
                     deleteTask(taskNumber);
                     addTaskMessage();
                     saveToFile();
-                } catch (IndexOutOfBoundsException e) {
+                } catch (Exception e) {
                     System.out.println("C'mon bruv, I can't deletes an imaginary task now, can I?");
                     System.out.println();
                 }
@@ -336,7 +330,7 @@ public class Mikey {
                     int start = userInput.indexOf(keyword) + 5;
                     String searchTerm = userInput.substring(start);
                     findTasks(searchTerm);
-                } catch (StringIndexOutOfBoundsException e) {
+                } catch (Exception e) {
                     System.out.println("Sorry mate, ah can't find something that ain't there!");
                     System.out.println();
                 }
