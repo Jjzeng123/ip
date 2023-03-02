@@ -203,12 +203,11 @@ public class Mikey {
     public static void findTasks(String searchTerm) {
         String keyword = searchTerm;
         System.out.println("Here ya go bruv, that's everythin that contains that search term:");
-        int counter = 0;
         for(int i = 0; i < tasks.size(); i++) {
             String temp = tasks.get(i).getName();
+            int taskNumberTemp = i + 1;
             if (temp.contains(keyword)) {
-                counter++;
-                System.out.print(counter + ". ");
+                System.out.print(taskNumberTemp + ". ");
                 printTask(i);
             }
         }
