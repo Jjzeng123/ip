@@ -96,6 +96,7 @@ The table below will contain the list of commands available to you, as well as e
 | Unmark tasks | `unmark <task index>` | `unmark 2` |
 | Delete tasks | `delete <task index>` | `delete 1` |
 | Find by keyword | `find <keyword>` | `find book` |
+| Closing the app | `bye` | `bye` |
 
 ## Conclusion
 Thank you for using Mikey, I hope you have as much fun working with him as I did working on him! If you have any further queries or features you would like to suggest, please feel free to reach out to me at [my email](jackie.zeng@u.nus.edu)!
