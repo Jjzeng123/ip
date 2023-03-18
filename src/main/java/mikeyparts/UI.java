@@ -32,7 +32,6 @@ public class UI {
         System.out.println("Ello bruv, me name's Mikey!");
         System.out.println("How can ah help ya bruv?");
         System.out.println();
-        System.out.println("This version is CAA 1620 180323");
     }
 
     public static void printList(ArrayList<Task> tasks) {
