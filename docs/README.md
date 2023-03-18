@@ -21,8 +21,8 @@ Hey there! Thanks for making Mikey your friend! He's here to help you with anyth
 ## Getting Started
 1. Java 11 is required for Mikey to function properly, please make sure your device has Java 11 installed. If not, you may download it [here](https://www.oracle.com/sg/java/technologies/downloads/#java11)
 
-2. Once you have ascertained that your device has Java 11 installed, you may download the `.jar file` [here](https://github.com/Jjzeng123/ip/releases/tag/A-Release). Place the file in a folder.
-![jar.png](images/jar.png)
+2. Once you have ascertained that your device has Java 11 installed, you may download the `.jar file` [here](https://github.com/Jjzeng123/ip/releases/tag/v3.0). Place the file in a folder.
+![jar2.png](images/jar2.png)
 Click on `ip.jar` to automatically download the file.
 
 3. Open the command terminal and navigate to the folder where you downloaded ip.jar using the `cd <file path>` commands as necessary.
