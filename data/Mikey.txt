@@ -1,6 +1,5 @@
 T | 0 | testing |  
 D | 1 | book reading | (by 9pm)
-E | 0 | book writing | from: 9pm to: 9pm
 T | 0 | skfjdksj |  
 E | 0 | fdkjfks | from:
 T | 0 | book |  

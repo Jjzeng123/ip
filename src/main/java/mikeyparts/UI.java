@@ -123,7 +123,7 @@ public class UI {
     }
 
     public static void deleteTaskMessage (ArrayList<Task> tasks, int i) {
-        System.out.println("I've gotcha mate, removed [ " + tasks.get(i).getTaskType() + "]" + "["
+        System.out.println("I've gotcha mate, removed [" + tasks.get(i).getTaskType() + "]" + "["
                 + tasks.get(i).getStatusIcon() + "] " + tasks.get(i).getName() + " "
                 + tasks.get(i).getDate());
     }
