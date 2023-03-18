@@ -49,12 +49,12 @@ public class Parser {
             try {
                 start = userInput.indexOf(keyword) + 5;
                 String taskName = userInput.substring(start);
-                if (taskName.isBlank()) {
-                    printInvalidTaskMessage();
-                } else {
+                if (!taskName.isBlank()) {
                     newTodo(taskName, 0);
                     printTodoTaskMessage(tasks);
                     saveToFile(tasks);
+                } else {
+                    printInvalidTaskMessage();
                 }
             } catch (Exception e) {
                 printInvalidTaskMessage();
@@ -66,9 +66,13 @@ public class Parser {
                 int startOfBy = userInput.indexOf("/by");
                 String taskName = userInput.substring(start, startOfBy - 1);
                 String dateTime = userInput.substring(startOfBy + 4);
-                newDeadline(taskName, dateTime, 0);
-                printDeadlineTaskMessage(tasks);
-                saveToFile(tasks);
+                if (!taskName.isBlank()) {
+                    newDeadline(taskName, dateTime, 0);
+                    printDeadlineTaskMessage(tasks);
+                    saveToFile(tasks);
+                } else {
+                    printInvalidTaskMessage();
+                }
             } catch (Exception e) {
                 printInvalidTaskMessage();
             }
@@ -81,9 +85,13 @@ public class Parser {
                 String timeOfEvent = userInput.substring(startOfFrom);
                 timeOfEvent = timeOfEvent.replace("from", "from:");
                 timeOfEvent = timeOfEvent.replace("to", "to:");
-                newEvent(taskName, timeOfEvent, 0);
-                printEventTaskMessage(tasks);
-                saveToFile(tasks);
+                if (!taskName.isBlank()) {
+                    newEvent(taskName, timeOfEvent, 0);
+                    printEventTaskMessage(tasks);
+                    saveToFile(tasks);
+                } else {
+                    printInvalidTaskMessage();
+                }
             } catch (Exception e) {
                 printInvalidTaskMessage();
             }
