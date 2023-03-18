@@ -127,4 +127,9 @@ public class UI {
                 + tasks.get(i).getStatusIcon() + "] " + tasks.get(i).getName() + " "
                 + tasks.get(i).getDate());
     }
+
+    public static void blankInputMessage() {
+        System.out.println("Blimey, you just gonna stand there silently eh?");
+        System.out.println();
+    }
 }

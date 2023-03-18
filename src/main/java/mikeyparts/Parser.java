@@ -28,10 +28,10 @@ public class Parser {
     public TaskList taskList = new TaskList();
     public ArrayList<Task> tasks = taskList.tasks;
 
-    public void parseCommand(){
+    public void parseCommand() {
         Scanner inputText = new Scanner(System.in);
         String userInput = inputText.nextLine();
-    String keyword = userInput.split(" ", 0)[0];
+        String keyword = userInput.split(" ", 0)[0];
         if (keyword.equalsIgnoreCase("bye")) {
             printExitMessage();
             System.exit(0);

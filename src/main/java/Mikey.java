@@ -4,6 +4,7 @@ import mikeyparts.Storage;
 import mikeyparts.TaskList;
 import mikeyparts.UI;
 import mikeyparts.Parser;
+import static mikeyparts.UI.blankInputMessage;
 
 public class Mikey {
 
@@ -16,7 +17,11 @@ public class Mikey {
         ui.welcomeMessage();
         storage.readFromFile();
         while (true) {
-            parser.parseCommand();
+            try {
+                parser.parseCommand();
+            } catch (Exception e) {
+                blankInputMessage();
+            }
         }
     }
 

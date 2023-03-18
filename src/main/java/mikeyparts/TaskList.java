@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import static mikeyparts.Storage.saveToFile;
 import static mikeyparts.UI.addTaskMessage;
+import static mikeyparts.UI.deleteTaskMessage;
 import static mikeyparts.UI.printInvalidMarkMessage;
 import static mikeyparts.UI.printInvalidUnmarkMessage;
 import static mikeyparts.UI.printMarkTasksMessage;
@@ -94,7 +95,7 @@ public class TaskList {
      * @param taskNumber the number of the task in the list
      */
     public static void deleteTask(int taskNumber) {
-
+        deleteTaskMessage(tasks, taskNumber);
         tasks.remove(taskNumber);
         addTaskMessage(tasks);
     }
