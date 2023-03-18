@@ -7,10 +7,10 @@ import mikeyparts.Parser;
 
 public class Mikey {
 
-    private UI ui;
-    private Storage storage;
+    private UI ui = new UI();
+    private Storage storage = new Storage();
     private TaskList tasklist = new TaskList();
-    private Parser parser;
+    private Parser parser = new Parser();
 
     public void run() throws java.io.IOException {
         ui.welcomeMessage();

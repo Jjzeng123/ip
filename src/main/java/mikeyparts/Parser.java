@@ -1,5 +1,8 @@
 package mikeyparts;
 
+import task.Task;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 import static mikeyparts.Storage.saveToFile;
 import static mikeyparts.TaskList.deleteTask;
@@ -8,7 +11,6 @@ import static mikeyparts.TaskList.markDone;
 import static mikeyparts.TaskList.newDeadline;
 import static mikeyparts.TaskList.newEvent;
 import static mikeyparts.TaskList.newTodo;
-import static mikeyparts.TaskList.tasks;
 import static mikeyparts.TaskList.unmarkDone;
 import static mikeyparts.UI.printDeadlineTaskMessage;
 import static mikeyparts.UI.printDeleteErrorMessage;
@@ -23,6 +25,7 @@ import static mikeyparts.UI.printTodoTaskMessage;
 
 public class Parser {
 
+    public ArrayList<Task> tasks = new ArrayList<Task>();
     public TaskList taskList = new TaskList();
 
     public void parseCommand(){

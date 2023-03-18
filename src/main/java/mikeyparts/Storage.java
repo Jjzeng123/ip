@@ -19,6 +19,7 @@ import static mikeyparts.UI.printInvalidTaskMessage;
 
 
 public class Storage {
+
     /**
      * Saves the data in the "tasks" arraylist to a text file in a certain format, and throws an IO exception
      * if the save fails, then creates the file manually and tries again.

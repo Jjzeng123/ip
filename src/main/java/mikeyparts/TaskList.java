@@ -5,7 +5,6 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static mikeyparts.Storage.saveToFile;
@@ -17,7 +16,7 @@ import static mikeyparts.UI.printTask;
 import static mikeyparts.UI.printUnmarkTasksMessage;
 
 public class TaskList {
-    public static ArrayList<Task> tasks;
+    public static ArrayList<Task> tasks = new ArrayList<Task>();
 
     /**
      * Returns a new Task of the "Deadline" type and adds it to the "tasks" arraylist.
