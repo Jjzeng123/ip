@@ -18,6 +18,14 @@ import static mikeyparts.UI.printUnmarkTasksMessage;
 public class TaskList {
     public static ArrayList<Task> tasks = new ArrayList<Task>();
 
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public TaskList() {
+        this.tasks = new ArrayList<Task>();
+    }
+
     /**
      * Returns a new Task of the "Deadline" type and adds it to the "tasks" arraylist.
      *
@@ -107,6 +115,7 @@ public class TaskList {
                 printTask(tasks, i);
             }
         }
+        System.out.println();
     }
 
     public static ArrayList<Task> markDone(ArrayList<Task> tasks, int i) {

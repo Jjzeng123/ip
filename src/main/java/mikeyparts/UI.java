@@ -42,6 +42,7 @@ public class UI {
                     + tasks.get(i).getStatusIcon() + "] " +  tasks.get(i).getName() + " "
                     + tasks.get(i).getDate());
         }
+        System.out.println();
     }
 
     public static void printExitMessage() {

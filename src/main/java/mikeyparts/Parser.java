@@ -25,8 +25,8 @@ import static mikeyparts.UI.printTodoTaskMessage;
 
 public class Parser {
 
-    public ArrayList<Task> tasks = new ArrayList<Task>();
     public TaskList taskList = new TaskList();
+    public ArrayList<Task> tasks = taskList.tasks;
 
     public void parseCommand(){
         Scanner inputText = new Scanner(System.in);
